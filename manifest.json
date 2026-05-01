@@ -1,7 +1,7 @@
 {
   "id": "co.bennett.custom-keyboard-shortcuts",
   "name": "Custom Keyboard Shortcuts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "githubRepo": "b-nnett/codex-plusplus-keyboard-shortcuts",
   "description": "Discover, remap, and disable Codex's keyboard shortcuts.",
   "author": {
