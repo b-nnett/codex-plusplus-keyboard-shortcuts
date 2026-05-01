@@ -113,16 +113,36 @@ const SEED_SHORTCUTS = [
   { combo: "Cmd+Alt+B", label: "Toggle right panel" },
   { combo: "Cmd+K", label: "Command bar" },
   { combo: "Cmd+F", label: "Find in chat" },
+  { combo: "Cmd+G", label: "Search" },
+  { combo: "Cmd+Shift+G", label: "Find previous match" },
   { combo: "Cmd+T", label: "New tab / browser" },
   { combo: "Cmd+Shift+M", label: "Open model picker" },
   { combo: "Ctrl+M", label: "Dictate" },
   { combo: "Cmd+J", label: "Toggle terminal" },
   { combo: "Cmd+Shift+E", label: "Toggle file tree" },
   { combo: "Cmd+N", label: "New chat" },
+  { combo: "Cmd+Alt+N", label: "New chat" },
+  { combo: "Cmd+Shift+N", label: "New window" },
   { combo: "Cmd+W", label: "Close tab" },
   { combo: "Cmd+,", label: "Open settings" },
   { combo: "Cmd+/", label: "Toggle comment" },
   { combo: "Cmd+Enter", label: "Send message" },
+  { combo: "Cmd+L", label: "Focus location bar" },
+  { combo: "Cmd+R", label: "Reload" },
+  { combo: "Cmd+[", label: "Go back" },
+  { combo: "Cmd+]", label: "Go forward" },
+  { combo: "Cmd+1", label: "Switch to tab 1" },
+  { combo: "Cmd+2", label: "Switch to tab 2" },
+  { combo: "Cmd+3", label: "Switch to tab 3" },
+  { combo: "Cmd+4", label: "Switch to tab 4" },
+  { combo: "Cmd+5", label: "Switch to tab 5" },
+  { combo: "Cmd+6", label: "Switch to tab 6" },
+  { combo: "Cmd+7", label: "Switch to tab 7" },
+  { combo: "Cmd+8", label: "Switch to tab 8" },
+  { combo: "Cmd+9", label: "Switch to last tab" },
+  { combo: "Ctrl+Tab", label: "Next tab" },
+  { combo: "Ctrl+Shift+Tab", label: "Previous tab" },
+  { combo: "Escape", label: "Cancel / close overlay" },
 ];
 
 function seedKnownShortcuts(state) {
@@ -133,21 +153,54 @@ function seedKnownShortcuts(state) {
 
 // ─────────────────────────────────────────────── combo string utilities ──
 
-const MOD_ALIASES = {
+const MOD_ALIASES = Object.freeze({
   "⌘": "Cmd",
-  "Meta": "Cmd",
-  "Cmd": "Cmd",
-  "Command": "Cmd",
+  "meta": "Cmd",
+  "cmd": "Cmd",
+  "command": "Cmd",
+  "comando": "Cmd",
+  "commande": "Cmd",
+  "befehl": "Cmd",
+  "befehls": "Cmd",
+  "コマンド": "Cmd",
+  "命令": "Cmd",
   "⌃": "Ctrl",
-  "Ctrl": "Ctrl",
-  "Control": "Ctrl",
+  "ctrl": "Ctrl",
+  "control": "Ctrl",
+  "controle": "Ctrl",
+  "contrôle": "Ctrl",
+  "steuerung": "Ctrl",
+  "strg": "Ctrl",
+  "コントロール": "Ctrl",
+  "控制": "Ctrl",
   "⌥": "Alt",
-  "Alt": "Alt",
-  "Option": "Alt",
-  "Opt": "Alt",
+  "alt": "Alt",
+  "option": "Alt",
+  "opt": "Alt",
+  "opcion": "Alt",
+  "opción": "Alt",
+  "opcao": "Alt",
+  "opção": "Alt",
+  "opzione": "Alt",
+  "wahl": "Alt",
+  "altgr": "Alt",
+  "オプション": "Alt",
+  "选项": "Alt",
+  "選項": "Alt",
   "⇧": "Shift",
-  "Shift": "Shift",
-};
+  "shift": "Shift",
+  "maj": "Shift",
+  "mayus": "Shift",
+  "mayús": "Shift",
+  "umschalt": "Shift",
+  "umschalttaste": "Shift",
+  "maiusc": "Shift",
+  "majuscula": "Shift",
+  "majúscula": "Shift",
+  "シフト": "Shift",
+  "上档": "Shift",
+  "上檔": "Shift",
+});
 
 const MOD_ORDER = ["Cmd", "Ctrl", "Alt", "Shift"];
 
@@ -165,6 +218,107 @@ const KEY_DISPLAY = {
 };
 
 const MOD_DISPLAY = { Cmd: "⌘", Ctrl: "⌃", Alt: "⌥", Shift: "⇧" };
+const SINGLE_KEY_SHORTCUTS = new Set([
+  "Escape",
+  "Enter",
+  "Tab",
+  "Space",
+  "Backspace",
+  "Delete",
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowUp",
+  "ArrowDown",
+]);
+
+const KEY_ALIASES = Object.freeze({
+  "return": "Enter",
+  "enter": "Enter",
+  "entrée": "Enter",
+  "entree": "Enter",
+  "eingabe": "Enter",
+  "intro": "Enter",
+  "invio": "Enter",
+  "retorno": "Enter",
+  "↵": "Enter",
+  "esc": "Escape",
+  "escape": "Escape",
+  "échap": "Escape",
+  "echap": "Escape",
+  "escapar": "Escape",
+  "escap": "Escape",
+  "取消": "Escape",
+  "tab": "Tab",
+  "tabulator": "Tab",
+  "tabulación": "Tab",
+  "tabulacion": "Tab",
+  "tabulazione": "Tab",
+  "⇥": "Tab",
+  "space": "Space",
+  "spacebar": "Space",
+  "espace": "Space",
+  "espacio": "Space",
+  "spazio": "Space",
+  "leertaste": "Space",
+  "スペース": "Space",
+  "空格": "Space",
+  "backspace": "Backspace",
+  "deletebackward": "Backspace",
+  "retourarrière": "Backspace",
+  "retourarriere": "Backspace",
+  "rücktaste": "Backspace",
+  "rucktaste": "Backspace",
+  "⌫": "Backspace",
+  "delete": "Delete",
+  "del": "Delete",
+  "suppr": "Delete",
+  "supr": "Delete",
+  "entf": "Delete",
+  "canc": "Delete",
+  "⌦": "Delete",
+  "left": "ArrowLeft",
+  "arrowleft": "ArrowLeft",
+  "←": "ArrowLeft",
+  "droite": "ArrowRight",
+  "right": "ArrowRight",
+  "arrowright": "ArrowRight",
+  "→": "ArrowRight",
+  "up": "ArrowUp",
+  "arrowup": "ArrowUp",
+  "↑": "ArrowUp",
+  "down": "ArrowDown",
+  "arrowdown": "ArrowDown",
+  "↓": "ArrowDown",
+  "plus": "+",
+  "comma": ",",
+  "virgule": ",",
+  "coma": ",",
+  "komma": ",",
+  "period": ".",
+  "dot": ".",
+  "point": ".",
+  "punto": ".",
+  "slash": "/",
+  "barreoblique": "/",
+  "barra": "/",
+});
+
+const NON_SEPARATOR_KEYS = new Set([
+  "/",
+  ",",
+  ".",
+  ";",
+  ":",
+  "[",
+  "]",
+  "\\",
+  "-",
+  "=",
+  "+",
+  "`",
+  "'",
+  "\"",
+]);
 
 /**
  * Normalize a combo expressed in any of the common forms (aria
@@ -178,8 +332,12 @@ function parseCombo(input) {
   let s = input.trim();
   if (!s) return null;
   // Split between consecutive symbol-modifiers and the key.
-  s = s.replace(/([⌘⌃⌥⇧])(?=[^+\s])/g, "$1+");
-  const parts = s.split(/[+\s]+/).filter(Boolean);
+  s = s
+    .replace(/[＋]/g, "+")
+    .replace(/[–—−]/g, "-")
+    .replace(/([⌘⌃⌥⇧])(?=[^+\s-])/g, "$1+")
+    .replace(/\s*-\s*/g, "-");
+  const parts = comboParts(s);
   if (!parts.length) return null;
 
   const mods = new Set();
@@ -187,26 +345,66 @@ function parseCombo(input) {
   for (const raw of parts) {
     const t = raw.trim();
     if (!t) continue;
-    const aliased = MOD_ALIASES[t] || MOD_ALIASES[capitalize(t)];
+    const aliased = canonicalModifier(t);
     if (aliased) {
       mods.add(aliased);
       continue;
     }
     // Anything else is the key. Keep last wins (so "Cmd+B+C" → key=C).
-    key = t;
+    key = canonicalKey(t);
   }
   if (!key) return null;
-
-  // Normalize key casing: single letters → uppercase, named keys keep PascalCase.
-  if (/^[a-z]$/i.test(key)) key = key.toUpperCase();
-  else key = capitalize(key);
 
   const ordered = MOD_ORDER.filter((m) => mods.has(m));
   return [...ordered, key].join("+");
 }
 
+function comboParts(value) {
+  const direct = value.split(/[+\s]+/).filter(Boolean);
+  if (direct.length > 1) return direct.flatMap(splitHyphenComboPart);
+  return splitHyphenComboPart(value);
+}
+
+function splitHyphenComboPart(part) {
+  if (!part.includes("-")) return [part];
+  if (/^.+-[-=+,.\/;:[\]\\`'"]$/.test(part)) {
+    return [part.slice(0, -2), part.slice(-1)];
+  }
+  return part.split("-").filter(Boolean);
+}
+
 function capitalize(s) {
   return s ? s[0].toUpperCase() + s.slice(1) : s;
+}
+
+function foldToken(value) {
+  return String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff⌘⌃⌥⇧←→↑↓↵⇥⌫⌦]+/g, "");
+}
+
+function canonicalModifier(value) {
+  return MOD_ALIASES[value] || MOD_ALIASES[foldToken(value)] || null;
+}
+
+function canonicalKey(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return null;
+  const folded = foldToken(raw);
+  const aliased = KEY_ALIASES[raw] || KEY_ALIASES[folded];
+  if (aliased) return aliased;
+  if (raw === " ") return "Space";
+  if (/^[a-z]$/i.test(raw)) return raw.toUpperCase();
+  if (/^[0-9]$/.test(raw)) return raw;
+  if (NON_SEPARATOR_KEYS.has(raw)) return raw;
+  return capitalize(raw);
+}
+
+function canonicalSearchToken(value) {
+  return String(canonicalModifier(value) || canonicalKey(value) || foldToken(value))
+    .toLowerCase();
 }
 
 /** Build canonical combo string from a KeyboardEvent. */
@@ -220,8 +418,8 @@ function comboFromEvent(e) {
   if (!key) return null;
   // Modifier-only keypresses ignored.
   if (["Meta", "Control", "Alt", "Shift", "OS"].includes(key)) return null;
-  if (/^[a-z]$/i.test(key)) key = key.toUpperCase();
-  else if (key.length > 1) key = capitalize(key);
+  key = canonicalKey(key);
+  if (!key) return null;
   const ordered = MOD_ORDER.filter((m) => mods.has(m));
   return [...ordered, key].join("+");
 }
@@ -236,6 +434,53 @@ function formatCombo(combo) {
     else out.push(KEY_DISPLAY[p] || p);
   }
   return out.join("");
+}
+
+function normalizeSearchText(value) {
+  const normalized = String(value || "")
+    .replace(/[⌘]/g, " cmd ")
+    .replace(/[⌃]/g, " ctrl ")
+    .replace(/[⌥]/g, " alt ")
+    .replace(/[⇧]/g, " shift ")
+    .replace(/[←]/g, " arrowleft ")
+    .replace(/[→]/g, " arrowright ")
+    .replace(/[↑]/g, " arrowup ")
+    .replace(/[↓]/g, " arrowdown ")
+    .replace(/[↵]/g, " enter ")
+    .replace(/[⇥]/g, " tab ")
+    .replace(/[⌫]/g, " backspace ")
+    .replace(/[⌦]/g, " delete ")
+    .replace(/\bcommand\b/gi, "cmd")
+    .replace(/\bcontrol\b/gi, "ctrl")
+    .replace(/\boption\b|\bopt\b/gi, "alt")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+/gi, " ")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, " ");
+  return normalized
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(canonicalSearchToken)
+    .join(" ");
+}
+
+function comboSearchText(combo) {
+  if (!combo) return "";
+  const variants = [
+    combo,
+    formatCombo(combo),
+    combo.replace(/\+/g, " "),
+    combo.replace(/\+/g, ""),
+    formatCombo(combo).replace(/\s+/g, ""),
+  ];
+  return variants
+    .flatMap((value) => {
+      const normalized = normalizeSearchText(value);
+      return normalized ? [normalized, normalized.replace(/\s+/g, "")] : [];
+    })
+    .filter(Boolean)
+    .join(" ");
 }
 
 // ───────────────────────────────────────────────────────────── discovery ──
@@ -285,7 +530,10 @@ function startDiscovery(state) {
 function ingest(state, { combo, label, source, ref }) {
   const canon = parseCombo(combo);
   if (!canon) return null;
-  const cleanLabel = (label || "").replace(/\s+/g, " ").trim();
+  let cleanLabel = (label || "").replace(/\s+/g, " ").trim();
+  if (isComboOnlyLabel(cleanLabel)) {
+    cleanLabel = seedLabelForCombo(canon) || "";
+  }
   if (!cleanLabel) return null;
   const id = `${canon}|${cleanLabel.toLowerCase()}`;
   let def = state.shortcuts.get(id);
@@ -347,7 +595,7 @@ function discoverFromKbd(state) {
     if (!combo) continue;
     ingest(state, {
       combo,
-      label: labelFor(parent),
+      label: labelForKbd(parent, siblings, combo),
       source: "kbd",
       ref: kbdRef(siblings),
     });
@@ -525,6 +773,80 @@ function labelFor(el) {
   return "";
 }
 
+function labelForKbd(parent, kbds, combo) {
+  const direct = stripComboFromLabel(labelFor(parent), combo, kbds);
+  if (direct) return direct;
+
+  for (let node = parent.parentElement; node; node = node.parentElement) {
+    const label = stripComboFromLabel(labelFor(node), combo, kbds);
+    if (label) return label;
+    const role = node.getAttribute?.("role");
+    const tagName = node.tagName;
+    if (tagName === "BUTTON" || tagName === "A" || role === "button" || role === "menuitem" || role === "link") {
+      break;
+    }
+  }
+
+  const canon = parseCombo(combo);
+  return canon ? seedLabelForCombo(canon) || "" : "";
+}
+
+function stripComboFromLabel(label, combo, kbds = []) {
+  let text = (label || "").replace(/\s+/g, " ").trim();
+  if (!text) return "";
+
+  const kbdTexts = (kbds || []).map((kbd) => (kbd.textContent || "").trim()).filter(Boolean);
+  const comboTokens = [
+    combo,
+    parseCombo(combo),
+    formatCombo(parseCombo(combo)),
+    kbdTexts.join(""),
+    kbdTexts.join(" "),
+    ...kbdTexts.filter((token) => !/^[a-z0-9]$/i.test(token)),
+  ].filter(Boolean);
+
+  for (const token of comboTokens) {
+    text = removeTextToken(text, token);
+  }
+
+  text = text
+    .replace(/\s+/g, " ")
+    .replace(/^[\s:–—-]+|[\s:–—-]+$/g, "")
+    .trim();
+
+  return isComboOnlyLabel(text) ? "" : text;
+}
+
+function removeTextToken(text, token) {
+  const needle = String(token || "").trim();
+  if (!needle) return text;
+  const idx = text.indexOf(needle);
+  if (idx >= 0) return `${text.slice(0, idx)} ${text.slice(idx + needle.length)}`;
+  const compactNeedle = needle.replace(/\s+/g, "");
+  const compactText = text.replace(/\s+/g, "");
+  if (compactNeedle && compactText === compactNeedle) return "";
+  return text;
+}
+
+function isComboOnlyLabel(label) {
+  const text = (label || "").replace(/\s+/g, "").trim();
+  if (!text) return false;
+  if (isShortcutCombo(parseCombo(text))) return true;
+  const compact = normalizeSearchText(text).replace(/\s+/g, "");
+  return isShortcutCombo(parseCombo(compact));
+}
+
+function isShortcutCombo(combo) {
+  return Boolean(combo && (combo.includes("+") || SINGLE_KEY_SHORTCUTS.has(combo)));
+}
+
+function seedLabelForCombo(combo) {
+  const canon = parseCombo(combo);
+  if (!canon) return null;
+  return SEED_SHORTCUTS.find((shortcut) => parseCombo(shortcut.combo) === canon)
+    ?.label ?? null;
+}
+
 // ─────────────────────────────────────────────────────── overrides store ──
 
 function loadOverrides(state) {
@@ -691,18 +1013,10 @@ function rerenderPage(state) {
 function renderPage(root, state) {
   state.pageRoot = root;
 
-  const header = el("section", "flex flex-col gap-1");
-  header.appendChild(sectionTitle("Shortcuts"));
-  const desc = el("div", "text-token-text-secondary text-sm");
-  desc.textContent =
-    "Auto-discovered from Codex's UI. Click a row to remap; use the toggle to disable.";
-  header.appendChild(desc);
-  root.appendChild(header);
-
-  const search = el("div", "flex flex-col gap-2 mt-2");
+  const search = el("div", "flex flex-col gap-2");
   const searchInput = document.createElement("input");
   searchInput.type = "search";
-  searchInput.placeholder = "Filter shortcuts…";
+  searchInput.placeholder = "Search shortcuts or keys…";
   searchInput.className =
     "border-token-border bg-token-foreground/5 h-token-button-composer " +
     "rounded-md border px-3 text-sm text-token-text-primary " +
@@ -718,13 +1032,9 @@ function renderPage(root, state) {
     const items = Array.from(state.shortcuts.values()).sort((a, b) =>
       a.label.localeCompare(b.label),
     );
-    const f = (filter || "").trim().toLowerCase();
+    const f = normalizeSearchText(filter);
     const matches = items.filter(
-      (def) =>
-        !f ||
-        def.label.toLowerCase().includes(f) ||
-        def.defaultCombo.toLowerCase().includes(f) ||
-        formatCombo(def.defaultCombo).toLowerCase().includes(f),
+      (def) => !f || shortcutSearchText(state, def).includes(f),
     );
 
     if (matches.length === 0) {
@@ -751,6 +1061,34 @@ function renderPage(root, state) {
   // Stash the renderer so discovery can refresh the visible list.
   state.pageRoot._renderList = renderList;
   state.pageRoot._searchInput = searchInput;
+}
+
+function shortcutSearchText(state, def) {
+  const override = state.overrides.get(def.id);
+  const currentCombo =
+    override && typeof override.combo === "string"
+      ? override.combo
+      : override && override.combo === null
+        ? ""
+        : def.defaultCombo;
+  const values = [
+    def.label,
+    def.defaultCombo,
+    formatCombo(def.defaultCombo),
+  ];
+  const comboValues = [comboSearchText(def.defaultCombo)];
+  if (currentCombo && currentCombo !== def.defaultCombo) {
+    values.push(currentCombo, formatCombo(currentCombo));
+    comboValues.push(comboSearchText(currentCombo));
+  }
+  const textValues = values
+    .flatMap((value) => {
+      const normalized = normalizeSearchText(value);
+      return normalized ? [normalized, normalized.replace(/\s+/g, "")] : [];
+    })
+    .filter(Boolean);
+  return [...textValues, ...comboValues.filter(Boolean)]
+    .join(" ");
 }
 
 function shortcutRow(state, def) {
@@ -896,19 +1234,6 @@ function el(tag, className) {
   const node = document.createElement(tag);
   if (className) node.className = className;
   return node;
-}
-
-function sectionTitle(text) {
-  const titleRow = el(
-    "div",
-    "flex h-toolbar items-center justify-between gap-2 px-0 py-0",
-  );
-  const inner = el("div", "flex min-w-0 flex-1 flex-col gap-1");
-  const t = el("div", "text-base font-medium text-token-text-primary");
-  t.textContent = text;
-  inner.appendChild(t);
-  titleRow.appendChild(inner);
-  return titleRow;
 }
 
 function roundedCard() {
